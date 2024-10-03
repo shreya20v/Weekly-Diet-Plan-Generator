@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Diet Plan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .diet-plan-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1, h2 { color: #4CAF50; }
+        .meal-plan { margin-top: 20px; }
+        .meal { margin-top: 10px; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 5px 0; }
+        .user-details { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="diet-plan-container">
+        <h1>Your Personalized Diet Plan</h1>
+
+        {% if diet_plan %}
+            <!-- Display user details -->
+            <div class="user-details">
+                <h2>User Details</h2>
+                <ul>
+                    <li><strong>Full Name:</strong> {{ diet_plan.dietplan[1] }}</li>
+                    <li><strong>Age:</strong> {{ diet_plan.dietplan[2] }}</li>
+                    <li><strong>Gender:</strong> {{ diet_plan.dietplan[3] }}</li>
+                    <li><strong>Body Weight:</strong> {{ diet_plan.dietplan[4] }} kg</li>
+                    <li><strong>Medical Condition:</strong> {{ diet_plan.dietplan[5] }}</li>
+                    <li><strong>Dietary Restrictions:</strong> {{ diet_plan.dietplan[9] }}</li>
+                    <li><strong>Diet Preference:</strong> {{ diet_plan.dietplan[6] }}</li>
+                    <li><strong>Fitness Goal:</strong> {{ diet_plan.dietplan[7] }}</li>
+                    <li><strong>Allergies:</strong> {{ diet_plan.dietplan[8] }}</li>
+                </ul>
+            </div>
+
+            <!-- Display meal plan -->
+            <div class="meal-plan">
+                <h2>Weekly Meal Plan</h2>
+                {% for day, meals in diet_plan.meals.items() %}
+                    <div class="meal">
+                        <h3>{{ day }}</h3>
+                        <ul>
+                            {% for meal in meals %}
+                                <li><strong>{{ meal[1] }}:</strong> {{ meal[3] }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No diet plan found.</p>
+        {% endif %}
+
+        <!-- Display benefits -->
+        <div class="benefits">
+            <h2>Benefits of Your Meal Plan</h2>
+            <ul>
+                <li>Boosts energy levels</li>
+                <li>Improves digestion</li>
+                <li>Supports weight management</li>
+                <li>Promotes better sleep</li>
+                <li>Enhances overall well-being</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
